@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
-import { StoreContext } from "../conetxt/StoreContext";
+import { StoreContext } from "../context/StoreContext";
 import { useNavigate } from "react-router-dom";
 
 function Cart() {
-  const { cartItems, food_list, removeItem, getTotalCartAmount } = useContext(StoreContext);
+  const { cartItems, food_list, removeItem, getTotalCartAmount, url } =
+    useContext(StoreContext);
   const navigate = useNavigate();
   return (
     <div className="mt-[100px]">
@@ -21,13 +22,17 @@ function Cart() {
         {food_list.map((item, index) => {
           if (cartItems[item._id] > 0) {
             return (
-              <div>
+              <div key={index}>
                 <div className="grid grid-cols-[1fr_1.5fr_1fr_1fr_1fr_0.5fr] items-center text-[max(1vw,12px)] m-[10px_0px] text-black">
-                  <img className="w-[100px]" src={item.image} alt="" />
+                  <img
+                    className="w-[100px]"
+                    src={url + "/images/" + item.image}
+                    alt=""
+                  />
                   <p>{item.name}</p>
-                  <p>${item.price}</p>
+                  <p>Rs.{item.price}</p>
                   <p>{cartItems[item._id]}</p>
-                  <p>${item.price * cartItems[item._id]}</p>
+                  <p>Rs.{item.price * cartItems[item._id]}</p>
                   <p
                     onClick={() => removeItem(item._id)}
                     className="cursor-pointer"
@@ -46,28 +51,41 @@ function Cart() {
           <h2 className="text-[25px] font-[600]">Cart Totals</h2>
           <div className="flex justify-between text-[#555]">
             <p>Subtotal</p>
-            <p>${getTotalCartAmount()}</p>
+            <p>Rs.{getTotalCartAmount()}</p>
           </div>
           <hr className="m-[10px_0px]" />
           <div className="flex justify-between text-[#555]">
             <p>Delivery Fee</p>
-            <p>${getTotalCartAmount()===0?0:2}</p>
+            <p>Rs.{getTotalCartAmount() === 0 ? 0 : 2}</p>
           </div>
           <hr className="m-[10px_0px]" />
           <div className="flex justify-between text-[#555]">
             <p>Total</p>
-            <p>${getTotalCartAmount()===0?0:getTotalCartAmount()+2}</p>
+            <p>
+              Rs.{getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}
+            </p>
           </div>
-          <button onClick={()=> navigate('/order')} className="border-none text-white bg-red-600 w-[max(15vw,20px)] p-[12px_0px] rounded-[4px] cursor-pointer">
+          <button
+            onClick={() => navigate("/order")}
+            className="border-none text-white bg-red-600 w-[max(15vw,20px)] p-[12px_0px] rounded-[4px] cursor-pointer"
+          >
             PROCEED TO CHECKOUT
           </button>
         </div>
         <div className="flex-1 max-[800px]:justify-start">
           <div>
-            <p className="text-[#555]">If you have a promo code, Enter it here</p>
+            <p className="text-[#555]">
+              If you have a promo code, Enter it here
+            </p>
             <div className="mt-[10px] flex justify-between items-center bg-[#eaeaea] rounded-[4px]">
-              <input className=" bg-transparent border-none outline-none pl-[10px]" type="text" placeholder="promo code" />
-              <button className="w-[max(10vw,150px)] p-[12px_5px] bg-black border-none text-white rounded-[4px]">Submit</button>
+              <input
+                className=" bg-transparent border-none outline-none pl-[10px]"
+                type="text"
+                placeholder="promo code"
+              />
+              <button className="w-[max(10vw,150px)] p-[12px_5px] bg-black border-none text-white rounded-[4px]">
+                Submit
+              </button>
             </div>
           </div>
         </div>

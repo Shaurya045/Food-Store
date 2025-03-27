@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { StoreContext } from "../conetxt/StoreContext";
+import { StoreContext } from "../context/StoreContext";
 import FoodItem from "./FoodItem";
 
 function FoodDisplay({ category }) {
