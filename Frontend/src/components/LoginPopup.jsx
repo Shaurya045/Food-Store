@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { assets } from "../assets/assets";
 import axios from "axios";
 import { StoreContext } from "../context/StoreContext";
+import { Link } from "react-router-dom";
 
 function LoginPopup({ setIsLoginPopupOpen }) {
   const { url, setToken } = useContext(StoreContext);
@@ -99,26 +100,50 @@ function LoginPopup({ setIsLoginPopupOpen }) {
           <p>By continuing, i agree to the terms of use & privacy policy.</p>
         </div>
         {currState === "Sign Up" ? (
-          <p>
-            Already have an account?{" "}
-            <span
-              className="text-orange-600 font-[500] cursor-pointer"
-              onClick={() => setCurrState("Login")}
-            >
-              Login
-            </span>
-          </p>
+          <div className="flex flex-col ">
+            <p>
+              Already have an account?{" "}
+              <span
+                className="text-orange-600 font-[500] cursor-pointer"
+                onClick={() => setCurrState("Login")}
+              >
+                Login
+              </span>
+            </p>
+            <p className="mt-[15px] font-bold text-[16px] ">Demo Account:-</p>
+            <p className="text-[15px] font-semibold ">
+              Email: <span className="text-orange-600">test8@gmail.com</span>
+            </p>
+            <p className="text-[15px] font-semibold ">
+              Password: <span className="text-orange-600">12345678</span>
+            </p>
+          </div>
         ) : (
-          <p>
-            Create an account?{" "}
-            <span
-              className="text-orange-600 font-[500] cursor-pointer"
-              onClick={() => setCurrState("Sign Up")}
-            >
-              Sign Up
-            </span>
-          </p>
+          <div className="flex flex-col ">
+            <p>
+              Create an account?{" "}
+              <span
+                className="text-orange-600 font-[500] cursor-pointer"
+                onClick={() => setCurrState("Sign Up")}
+              >
+                Sign Up
+              </span>
+            </p>
+            <p className="mt-[15px] font-bold text-[16px] ">Demo Account:-</p>
+            <p className="text-[15px] font-semibold ">
+              Email: <span className="text-orange-600">test8@gmail.com</span>
+            </p>
+            <p className="text-[15px] font-semibold ">
+              Password: <span className="text-orange-600">12345678</span>
+            </p>
+          </div>
         )}
+        <Link
+          className="text-orange-600 text-[18px] font-bold "
+          to="https://food-store-admin.vercel.app/"
+        >
+          View Admin Dashboard
+        </Link>
       </form>
     </div>
   );
